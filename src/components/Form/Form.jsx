@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from 'redux/actions/action-contacts';
+import { addContactThunk } from 'redux/contacts-operations';
+import { selectContacts, selectIsLoading } from 'redux/selector';
 import s from './Form.module.css';
 
 export const Form = () => {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
   const handleInputChange = evt => {
-    const { name } = evt.currentTarget;
-    const { value } = evt.currentTarget;
+    const { name, value } = evt.currentTarget;
 
     switch (name) {
       case 'name':
         setName(value);
         break;
 
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
 
       default:
@@ -31,22 +31,24 @@ export const Form = () => {
 
   const handleFormSubmit = evt => {
     evt.preventDefault();
-    const profile = { id: nanoid(3), name, number };
-    const nameToCheck = profile.name.toLocaleLowerCase();
+    const nameToCheck = name.toLowerCase();
     const isIncludeName = contacts.some(
-      contact => contact.name.toLocaleLowerCase() === nameToCheck
+      contact => contact.name.toLowerCase() === nameToCheck
     );
     if (isIncludeName) {
-      toast.warn(`${profile.name} is already in contacts`, { autoClose: 2000 });
+      toast.warn(`${name} is already in contacts`, {
+        autoClose: 2000,
+      });
       return;
     }
-    dispatch(addContact(profile));
+    const profile = { name, phone };
+    dispatch(addContactThunk(profile));
     formReset();
   };
 
   const formReset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -69,7 +71,7 @@ export const Form = () => {
           Number
           <input
             className={s.form_input}
-            value={number}
+            value={phone}
             onChange={handleInputChange}
             type="tel"
             name="number"
@@ -78,7 +80,7 @@ export const Form = () => {
             required
           />
         </label>
-        <button className={s.form_button} type="submit">
+        <button className={s.form_button} disabled={isLoading} type="submit">
           Add contact
         </button>
       </form>
