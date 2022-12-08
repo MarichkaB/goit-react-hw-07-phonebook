@@ -1,0 +1,9 @@
+.filter_input {
+    display: block;
+    margin: 10px auto;
+    background-color: rgb(236, 230, 223);
+}
+
+.label {
+    color: antiquewhite;
+}

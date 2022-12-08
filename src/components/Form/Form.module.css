@@ -1,0 +1,29 @@
+.form {
+    padding: 15px;
+}
+
+.form_name {
+    color: antiquewhite;
+}
+
+.form_input {
+    display: block;
+    margin: 10px auto;
+    background-color: rgb(236, 230, 223);
+}
+
+.form_button {
+    margin: 0 auto;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 5px outset rgb(186, 164, 134);
+    background-color: antiquewhite;
+}
+
+.form_button:hover {
+    scale: 1.1;
+    color: black;
+    background-color: rgb(186, 164, 134);
+}
