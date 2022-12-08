@@ -3,7 +3,7 @@ import { ContactsItem } from '../ContactsItem/ContactsItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContactsThunk } from 'redux/contacts-operations';
 import { selectContacts, selectFilter, selectIsLoading } from 'redux/selector';
-import { RevolvingDot } from 'react-loader-spinner';
+import { BallTriangle } from 'react-loader-spinner';
 import s from './ContactsList.module.css';
 
 export const ContactsList = () => {
@@ -26,15 +26,10 @@ export const ContactsList = () => {
 
   if (isLoading) {
     return (
-      <RevolvingDot
-        height="100"
+      <BallTriangle
         width="100"
-        radius="6"
         color="#4fa94d"
-        secondaryColor=""
-        ariaLabel="revolving-dot-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
+        ariaLabel="ball-triangle-loading"
         visible={true}
       />
     );
@@ -51,8 +46,8 @@ export const ContactsList = () => {
   return (
     <div>
       <ul className={s.contacts_list}>
-        {filteredContacts.map(({ name, number, id }) => {
-          return <ContactsItem key={id} name={name} number={number} id={id} />;
+        {filteredContacts.map(({ name, phone, id }) => {
+          return <ContactsItem key={id} name={name} phone={phone} id={id} />;
         })}
       </ul>
     </div>

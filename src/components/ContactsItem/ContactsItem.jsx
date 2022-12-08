@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import s from './ContactsItem.module.css';
 
-export const ContactsItem = ({ name, number, id }) => {
+export const ContactsItem = ({ name, phone, id }) => {
   const dispatch = useDispatch();
   return (
     <li className={s.contacts_item}>
       <span>{name}:</span>
-      <span>{number}</span>
+      <span>{phone}</span>
       <button
         className={s.button}
         type="button"
@@ -23,5 +23,5 @@ export const ContactsItem = ({ name, number, id }) => {
 ContactsItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
 };
